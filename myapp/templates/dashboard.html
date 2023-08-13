@@ -1,0 +1,16 @@
+{% extends 'home.html' %}
+{% block title %}Dashboard{% endblock title %}
+{% block body %}
+<h1>Welcome {{name}}</h1>
+{% for g in groups %}
+<h1>Group: {{g}}</h1>
+{% endfor %}
+
+
+<form action="" method="post" class="container p-5">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Add Post">
+</form>
+
+{% endblock body %}

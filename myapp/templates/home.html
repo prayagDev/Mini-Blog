@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>{% block title %}Home{% endblock title %}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+</head>
+<body>
+    {% include "navbar.html" %}
+    {% block body %}
+    <h1 class="pb-5">All POSTS </h1>
+    <table class="table">
+        <thead>
+          <tr>
+            <th class="col-md-1">Sno</th>
+            <th class="col-md-1">Title</th>
+            <th class="col-md-4">Description</th>
+            <th class="col-md-6" colspan="2">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+          <tr>
+            <th scope="row" class="col-md-1">{{forloop.counter}}</th>
+            <td class="col-md-1">{{post.title}}</td>
+            <td class="col-md-4">{{post.desc}}</td>
+            {% if perms.myapp.delete_post %}
+            <td class="col-md-3">
+                <a href="{% url 'post_update' post.id %}" target="_blank">Edit</a>
+            </td>
+            <td class="col-md-3">
+                <a href="{% url 'post_delete' post.id %}">Delete</a>
+            </td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endblock body %}
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>
